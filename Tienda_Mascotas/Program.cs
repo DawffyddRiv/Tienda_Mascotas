@@ -12,6 +12,11 @@
             List<Animales> listAnimales=new List<Animales>();
            //Agrego animal a la lista
             listAnimales.Add(animal_1);
+            //Agrego tabla Empleados(Pendiente)
+            //agrego tabla Productos
+            List<Productos> listProductsos=new List<Productos>();
+            Productos prod1 = new Productos("P-001") { NOMBRE_PRODUCTO = "Croquetas perro", PRECIO = 200, ID_ANIMAL = "A-001" };
+            Console.WriteLine($"ID producto {prod1.ID_PRODUCTO} , Nombre: {prod1.NOMBRE_PRODUCTO} ,Precio: {prod1.PRECIO} ,ClaveAnimal: {prod1.ID_ANIMAL} ");
             
             
         }
