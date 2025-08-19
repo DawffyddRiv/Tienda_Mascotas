@@ -6,17 +6,15 @@ namespace Tienda_Mascotas
     {
         static void Main(string[] args)
         {
-            List<Animales> listaAnimales = new List<Animales>();
-            AltaAnimales(listaAnimales,"A-003","Caballo");
-            foreach (Animales An in listaAnimales) { Console.WriteLine(An); }
+            gestorAnimales animalGestor = new gestorAnimales();
+
+            animalGestor.AltaAnimales("A-006","Caballo");
+            animalGestor.AltaAnimales("A-006", "Castor");
+            animalGestor.MostrarAnimales();
+         
 
         }
-        public static void AltaAnimales(List<Animales> milista, string idAnimal, string nombreAnim)
-        {            
-            Animales miAnimal = new Animales(idAnimal);
-            miAnimal.NOMBRE_ANIMAL = nombreAnim;
-            milista.Add(miAnimal);
-        }
+       
     }
 
 
@@ -45,6 +43,37 @@ namespace Tienda_Mascotas
         {
             return $"ID: {IDANIMAL}, Nombre: {NOMBRE_ANIMAL}";
         }
+
+    }
+    //Se plantea separar las entidades de los gestores.Primer gestor-> Animales
+    public class gestorAnimales 
+    { 
+        private List<Animales> listaAnimales=new List<Animales>();
+
+        public void AltaAnimales(string idAnimal, string nombreAnim)
+        {
+            if (listaAnimales.Any(anim => anim.IDANIMAL == idAnimal))
+            {
+                Console.WriteLine("Ya existe un animal con ese ID.");
+                return;
+            }
+            else
+            {
+
+                Animales miAnimal = new Animales(idAnimal);
+                miAnimal.NOMBRE_ANIMAL = nombreAnim;
+                listaAnimales.Add(miAnimal);
+            }
+        }
+        public void MostrarAnimales()
+        {
+            foreach (Animales a in listaAnimales)
+            {
+                Console.WriteLine(a);
+            }
+        }
+
+
 
     }
 
