@@ -19,8 +19,12 @@ namespace Tienda_Mascotas
             animalGestor.borrarAnimal("A-006");
             Console.WriteLine("Lista Actualizada de Animales");
             animalGestor.MostrarAnimales();
-
-
+            Console.WriteLine("");
+            Console.WriteLine("Sigue la lista de empleados");
+            gestorEmpleados miStaff = new gestorEmpleados();
+            miStaff.altaEmpleados("E-001", "Pandora");
+            miStaff.mostrarEmpleados();
+            
 
         }
        
@@ -141,6 +145,35 @@ namespace Tienda_Mascotas
         }
 
     }
+
+    public class gestorEmpleados //Se realiza el gestor. Metodos de gestión para la tabla Empleados
+    {
+        List<Empleados> listaEmpleados=new List<Empleados>();
+
+        public void altaEmpleados(string idEmplo,string nomEmplo) 
+        {
+            if (listaEmpleados.Any(emplo => emplo.ID_EMPLEADO == idEmplo))
+            {
+                Console.WriteLine("Ya existe un empleado con ese ID");
+                return;
+            }
+            else 
+            {
+
+                Empleados miEmpleado = new Empleados(idEmplo);
+                miEmpleado.NOMBRE_EMPLEADO = nomEmplo;
+                listaEmpleados.Add(miEmpleado);
+            }
+        }
+        public void mostrarEmpleados() 
+        {
+            foreach (Empleados em in listaEmpleados) 
+            { 
+                Console.WriteLine($"ID Empleado: {em.ID_EMPLEADO}, Nombre: {em.NOMBRE_EMPLEADO}"); 
+            }
+        }
+    }
+
     public class Productos
     {
         private string idProducto;
