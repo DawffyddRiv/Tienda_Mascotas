@@ -1,4 +1,6 @@
 ﻿using System.Diagnostics.Metrics;
+using System.Numerics;
+using Tienda_Mascotas;
 
 namespace Tienda_Mascotas
 {
@@ -245,4 +247,39 @@ namespace Tienda_Mascotas
 
 
 }
+
+
+/*      Apuntes para MEJORA. Se tiene que rehacer los constructores de las clases de Animales, Empleados, etc para que se pueda agregar directamente el objeto y las validaciones 
+ *      también estén dentro de ellas, así las clases para la gestión se atomicen de mejor forma para escalabilidad 
+
+public class gestorEmpleados
+{
+    List<Empleados> listaEmpleados = new List<Empleados>();
+    //Se pasa el objeto de tipo Empleados para evitar su edición dentro del método altaEmpleados
+    public void altaEmpleados(Empleados nuevoEmpleado)
+    {
+        if (listaEmpleados.Any(emplo => emplo.ID_EMPLEADO == nuevoEmpleado.ID_EMPLEADO))
+        {
+            Console.WriteLine("Ya existe un empleado con ese ID");
+            return;
+        }
+
+        listaEmpleados.Add(nuevoEmpleado);
+    }
+
+    public void mostrarEmpleados()
+    {
+        foreach (Empleados em in listaEmpleados)
+        {
+            Console.WriteLine($"ID Empleado: {em.ID_EMPLEADO}, Nombre: {em.NOMBRE_EMPLEADO}");
+        }
+    }
+}
+
+Empleados miEmpleado = new Empleados(idEmplo);
+miEmpleado.NOMBRE_EMPLEADO = nomEmplo;
+
+gestor.altaEmpleados(miEmpleado);
+
+*/
 
