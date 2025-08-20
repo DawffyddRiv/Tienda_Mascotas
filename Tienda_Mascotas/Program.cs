@@ -9,9 +9,18 @@ namespace Tienda_Mascotas
             gestorAnimales animalGestor = new gestorAnimales();
 
             animalGestor.AltaAnimales("A-006","Caballo");
-            animalGestor.AltaAnimales("A-006", "Castor");
+            animalGestor.AltaAnimales("A-007", "Castor");
+            animalGestor.AltaAnimales("A-008", "Elefante");
             animalGestor.MostrarAnimales();
-         
+            Console.WriteLine("");
+            animalGestor.ActualizarAnimales("A-006", "Leon");
+            animalGestor.MostrarAnimales();
+            Console.WriteLine("");
+            animalGestor.borrarAnimal("A-006");
+            Console.WriteLine("Lista Actualizada de Animales");
+            animalGestor.MostrarAnimales();
+
+
 
         }
        
@@ -31,7 +40,7 @@ namespace Tienda_Mascotas
         public string IDANIMAL
         {
             get { return this.id_Animal; }
-            /* set { this.id_Animal = value; }*/
+             set { this.id_Animal = value; }
 
         }
         public string NOMBRE_ANIMAL
@@ -39,7 +48,7 @@ namespace Tienda_Mascotas
             get { return this.nombre_animal; }
             set { this.nombre_animal = value; }
         }
-        public override string ToString()
+        public override string ToString() //Se puede sustituir pero no se comprende del todo su funcionamiento
         {
             return $"ID: {IDANIMAL}, Nombre: {NOMBRE_ANIMAL}";
         }
@@ -47,11 +56,12 @@ namespace Tienda_Mascotas
     }
     //Se plantea separar las entidades de los gestores.Primer gestor-> Animales
     public class gestorAnimales 
-    { 
+    {        
         private List<Animales> listaAnimales=new List<Animales>();
 
         public void AltaAnimales(string idAnimal, string nombreAnim)
         {
+            
             if (listaAnimales.Any(anim => anim.IDANIMAL == idAnimal))
             {
                 Console.WriteLine("Ya existe un animal con ese ID.");
@@ -59,17 +69,49 @@ namespace Tienda_Mascotas
             }
             else
             {
-
                 Animales miAnimal = new Animales(idAnimal);
                 miAnimal.NOMBRE_ANIMAL = nombreAnim;
                 listaAnimales.Add(miAnimal);
             }
         }
+        public void ActualizarAnimales(string idAnimal, string nombreAnim) //Estamos intentando actualizar la instancia . Creo que tiene que ser un setter
+        {   
+
+            Animales animalExistente = listaAnimales.FirstOrDefault(a => a.IDANIMAL == idAnimal);//Buscamos y el primero que encontremos(o no) se guarda en una objeto Animales.Si hay duplicados se usa listaAnimales.Where
+
+            if (animalExistente != null)
+            {
+                animalExistente.NOMBRE_ANIMAL = nombreAnim;
+                Console.WriteLine("Animal actualizado correctamente.");
+            }
+            else
+            {
+                Console.WriteLine("No se encontró un animal con ese ID.");
+            }
+
+        }
+
+        public void borrarAnimal(string idAnimal) 
+        { 
+            Animales eraAnimal=listaAnimales.FirstOrDefault(a=>a.IDANIMAL==idAnimal);
+            if (eraAnimal != null)
+            {
+                listaAnimales.Remove(eraAnimal);
+                Console.WriteLine("Animal eliminado de la lista");
+            }
+            else
+            {
+                Console.WriteLine("No se encontró un animal con ese ID.");
+            }
+
+        }
+
         public void MostrarAnimales()
         {
             foreach (Animales a in listaAnimales)
             {
-                Console.WriteLine(a);
+                Console.WriteLine($"ID: {a.IDANIMAL} Nombre del Animal {a.NOMBRE_ANIMAL} ");
+                //Console.WriteLine(a);
             }
         }
 
