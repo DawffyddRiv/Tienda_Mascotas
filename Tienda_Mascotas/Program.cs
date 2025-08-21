@@ -9,27 +9,38 @@ namespace Tienda_Mascotas
         static void Main(string[] args)
         {
             gestorAnimales animalGestor = new gestorAnimales();
+            Animales miAnimal = new Animales();
+            miAnimal.IDANIMAL = "A-01";
+            miAnimal.NOMBRE_ANIMAL = "Pancho";
+            animalGestor.AltaAnimales(miAnimal);
+            animalGestor.MostrarAnimales();
+            Console.WriteLine("");
+            Animales otroAnimal = new Animales();
+            otroAnimal.IDANIMAL = "A-01";
+            otroAnimal.NOMBRE_ANIMAL = "Francisco";
+            animalGestor.ActualizarAnimales(otroAnimal);
+            animalGestor.MostrarAnimales();
+            //Agrego otro animal
+            Animales animal3=new Animales();
+            animal3.IDANIMAL = "A-02";
+            animal3.NOMBRE_ANIMAL = "Fido";
+            animalGestor.AltaAnimales(animal3);
+            Console.WriteLine("");
+            animalGestor.MostrarAnimales();
+            animalGestor.borrarAnimal(animal3);
+            Console.WriteLine("");
+            animalGestor.MostrarAnimales();
 
+            Empleados miEmpleado = new Empleados();
+        }
+            
+            /*
+                
             animalGestor.AltaAnimales("A-006","Caballo");
             animalGestor.AltaAnimales("A-007", "Castor");
             animalGestor.AltaAnimales("A-008", "Elefante");
             animalGestor.MostrarAnimales();
-            Console.WriteLine("");
-            animalGestor.ActualizarAnimales("A-006", "Leon");
-            animalGestor.MostrarAnimales();
-            Console.WriteLine("");
-            animalGestor.borrarAnimal("A-006");
-            Console.WriteLine("Lista Actualizada de Animales");
-            animalGestor.MostrarAnimales();
-            Console.WriteLine("");
-            Console.WriteLine("Sigue la lista de empleados");
-            gestorEmpleados miStaff = new gestorEmpleados();
-            miStaff.altaEmpleados("E-001", "Pandora");
-            miStaff.mostrarEmpleados();
-            
-
-        }
-       
+            */       
     }
 
 
@@ -37,15 +48,10 @@ namespace Tienda_Mascotas
     {
         private string id_Animal;
         private string nombre_animal;
-
-        public Animales(string id_Animal)
-        {
-            this.id_Animal = id_Animal;
-        }
-
+             
         public string IDANIMAL
         {
-            get { return this.id_Animal; }
+             get { return this.id_Animal; }
              set { this.id_Animal = value; }
 
         }
@@ -65,29 +71,29 @@ namespace Tienda_Mascotas
     {        
         private List<Animales> listaAnimales=new List<Animales>();
 
-        public void AltaAnimales(string idAnimal, string nombreAnim)
+        public void AltaAnimales(Animales animal)
         {
             
-            if (listaAnimales.Any(anim => anim.IDANIMAL == idAnimal))
+            if (listaAnimales.Any(anim => anim.IDANIMAL == animal.IDANIMAL))
             {
                 Console.WriteLine("Ya existe un animal con ese ID.");
                 return;
             }
             else
-            {
-                Animales miAnimal = new Animales(idAnimal);
-                miAnimal.NOMBRE_ANIMAL = nombreAnim;
-                listaAnimales.Add(miAnimal);
+            {                
+                listaAnimales.Add(animal);
             }
         }
-        public void ActualizarAnimales(string idAnimal, string nombreAnim) //Estamos intentando actualizar la instancia . Creo que tiene que ser un setter
+        public void ActualizarAnimales(Animales anim) //Estamos intentando actualizar la instancia . Creo que tiene que ser un setter
         {   
 
-            Animales animalExistente = listaAnimales.FirstOrDefault(a => a.IDANIMAL == idAnimal);//Buscamos y el primero que encontremos(o no) se guarda en una objeto Animales.Si hay duplicados se usa listaAnimales.Where
+            Animales animalExistente = listaAnimales.FirstOrDefault(a => a.IDANIMAL == anim.IDANIMAL);//Buscamos y el primero que encontremos(o no) se guarda en una objeto Animales.Si hay duplicados se usa listaAnimales.Where
 
             if (animalExistente != null)
             {
-                animalExistente.NOMBRE_ANIMAL = nombreAnim;
+                //anim.IDANIMAL =animalExistente.IDANIMAL ;
+                animalExistente.NOMBRE_ANIMAL = anim.NOMBRE_ANIMAL;
+
                 Console.WriteLine("Animal actualizado correctamente.");
             }
             else
@@ -97,9 +103,9 @@ namespace Tienda_Mascotas
 
         }
 
-        public void borrarAnimal(string idAnimal) 
+        public void borrarAnimal(Animales animbo) 
         { 
-            Animales eraAnimal=listaAnimales.FirstOrDefault(a=>a.IDANIMAL==idAnimal);
+            Animales eraAnimal=listaAnimales.FirstOrDefault(a=>a.IDANIMAL==animbo.IDANIMAL);
             if (eraAnimal != null)
             {
                 listaAnimales.Remove(eraAnimal);
@@ -125,20 +131,17 @@ namespace Tienda_Mascotas
 
     }
 
-
+    
     public class Empleados
     {
         private string idEmpleado;
         private string nombreEmpleado;
-        public Empleados(string idempleado)
-        {
-            this.idEmpleado = idempleado;
-        }
-
+        //public Empleados(string idempleado)
+        
         public string ID_EMPLEADO
         {
             get { return this.idEmpleado; }
-            /*set { this.idEmpleado = value; }*/
+            set { this.idEmpleado = value;}
         }
         public string NOMBRE_EMPLEADO
         {
@@ -147,24 +150,22 @@ namespace Tienda_Mascotas
         }
 
     }
-
+    //Vamos aqui. Siguen los empleados.
     public class gestorEmpleados //Se realiza el gestor. Metodos de gestión para la tabla Empleados
     {
         List<Empleados> listaEmpleados=new List<Empleados>();
 
-        public void altaEmpleados(string idEmplo,string nomEmplo) 
+        public void altaEmpleados(Empleados nuevoEmpleado) 
         {
-            if (listaEmpleados.Any(emplo => emplo.ID_EMPLEADO == idEmplo))
+            if (listaEmpleados.Any(emplo => emplo.ID_EMPLEADO == nuevoEmpleado.ID_EMPLEADO))
             {
                 Console.WriteLine("Ya existe un empleado con ese ID");
                 return;
             }
             else 
             {
-
-                Empleados miEmpleado = new Empleados(idEmplo);
-                miEmpleado.NOMBRE_EMPLEADO = nomEmplo;
-                listaEmpleados.Add(miEmpleado);
+                
+                listaEmpleados.Add(nuevoEmpleado);
             }
         }
         public void mostrarEmpleados() 
@@ -175,20 +176,17 @@ namespace Tienda_Mascotas
             }
         }
     }
-
+    /*
     public class Productos
     {
         private string idProducto;
         private string nombreProducto;
         private double precio;
         private string id_Animal;
-
-        public Productos(string idProducto)
-        {
-            this.idProducto = idProducto;
-        }
+                
         public string ID_PRODUCTO
         {
+            set { this.idProducto = value; }
             get { return this.idProducto; }
         }
         public string NOMBRE_PRODUCTO
@@ -214,28 +212,37 @@ namespace Tienda_Mascotas
         private string idVendedor;
         private string fechaVenta;
 
-        public Ventas(string idVenta, string idVenddor)
+        public string IDVENTA
         {
-            this.idVentas = idVenta;
-            //this.idProducto = idProduct;
-            this.idVendedor = idVenddor;
+            get { return this.idVentas; }
+            set {this .idVentas = value; }           
         }
         public string FECHAVENTA
         {
             get { return this.fechaVenta; }
             set { this.fechaVenta = value; }
         }
-
+        public string ID_EMPLEADO 
+        {
+            get{ return this.idVendedor; }
+            set{ this.idVendedor = value;
+        }
     }
     public class ordenVenta
     {
         private string idVenta;
         private string idProducto;
         private int cantidadProducto;
-        public ordenVenta(string idVenta, string idProducto)
+
+        public string IDVENTA 
         {
-            this.idVenta = idVenta;
-            this.idProducto = idProducto;           
+            get { return this.idVenta; }
+            set { this.idVenta = value; }
+        }
+        public string IDRODUCTO
+            {
+                get { return this.idProducto; }
+                set { this.idProducto = value; }
         }
 
         public int CANTIDADPRODUCTO
@@ -244,7 +251,7 @@ namespace Tienda_Mascotas
             set { this.cantidadProducto = value; }
         }
     }
-
+    */
 
 }
 
