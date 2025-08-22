@@ -56,6 +56,40 @@ namespace Tienda_Mascotas
             gestorStaff.borraEmpleado(miEmpleado2);
             gestorStaff.mostrarEmpleados();
 
+            Console.WriteLine("Lista de productos");
+
+            Productos producto1 = new Productos();
+            producto1.ID_PRODUCTO = "P-01";
+            producto1.NOMBRE_PRODUCTO = "Arena Gato";
+            producto1.PRECIO = 750;
+            producto1.ID_ANIMAL = "A-01";
+
+            Productos producto2 = new Productos();
+            producto2.ID_PRODUCTO = "P-02";
+            producto2.NOMBRE_PRODUCTO = "Croquetas Perro";
+            producto2.PRECIO = 420;
+            producto2.ID_ANIMAL = "A-02";
+
+            Productos producto3 = new Productos();
+            producto3.ID_PRODUCTO = "P-03";
+            producto3.NOMBRE_PRODUCTO = "";
+            producto3.NOMBRE_PRODUCTO = "Comida Pez";
+            producto3.PRECIO = 180;
+            producto3.ID_ANIMAL = "A-03";
+
+            gestorProductos misProductos= new gestorProductos();
+            misProductos.altaProductos(producto1);
+            misProductos.altaProductos(producto2);
+            misProductos.altaProductos(producto3);
+            misProductos.mostrarProductos();
+
+            Productos nuevoProducto= new Productos();
+            nuevoProducto.ID_PRODUCTO = "P-02";
+            nuevoProducto.NOMBRE_PRODUCTO = "Arenero";
+            nuevoProducto.PRECIO = 950;
+            nuevoProducto.ID_ANIMAL = "A-02";
+            misProductos.actualizarProducto(nuevoProducto);
+            misProductos.mostrarProductos();
         }
 
         /*
@@ -275,7 +309,8 @@ namespace Tienda_Mascotas
         {
             foreach (Productos produc in listaProductos) 
             {
-                Console.WriteLine($"ID: {produc.ID_PRODUCTO}, Nombre: {produc.NOMBRE_PRODUCTO}, Precio: {produc.PRECIO}, ID:Animal: {produc.ID_PRODUCTO}");
+                Console.WriteLine($"ID: {produc.ID_PRODUCTO}, Nombre: {produc.NOMBRE_PRODUCTO}, Precio: {produc.PRECIO}, ID:Animal: {produc.ID_ANIMAL}");
+                //Console.WriteLine("");
             }
         }
         public void actualizarProducto(Productos produc) 
@@ -283,8 +318,13 @@ namespace Tienda_Mascotas
             Productos freshProducto = listaProductos.FirstOrDefault(prod=>prod.ID_PRODUCTO==produc.ID_PRODUCTO);
             if (freshProducto != null)
             {
-                freshProducto=produc;
-                Console.WriteLine("Se ha actualizado el prodcuto");
+                //freshProducto=produc;//- Ahora freshProducto apunta a otro objeto (produc), pero la lista sigue apuntando al objeto original, que quedó sin cambios.
+                freshProducto.ID_PRODUCTO = produc.ID_PRODUCTO;
+                freshProducto.NOMBRE_PRODUCTO=produc.NOMBRE_PRODUCTO;
+                freshProducto.PRECIO= produc.PRECIO;
+                freshProducto.ID_ANIMAL=produc.ID_ANIMAL;
+
+                Console.WriteLine("Se ha actualizado el producto");
             }
             else 
             {
