@@ -21,7 +21,7 @@ namespace Tienda_Mascotas
             animalGestor.ActualizarAnimales(otroAnimal);
             animalGestor.MostrarAnimales();
             //Agrego otro animal
-            Animales animal3=new Animales();
+            Animales animal3 = new Animales();
             animal3.IDANIMAL = "A-02";
             animal3.NOMBRE_ANIMAL = "Fido";
             animalGestor.AltaAnimales(animal3);
@@ -31,16 +31,40 @@ namespace Tienda_Mascotas
             Console.WriteLine("");
             animalGestor.MostrarAnimales();
 
-            Empleados miEmpleado = new Empleados();
+            gestorEmpleados gestorStaff = new gestorEmpleados();
+            Empleados miEmpleado1 = new Empleados();
+            miEmpleado1.ID_EMPLEADO = "E-01";
+            miEmpleado1.NOMBRE_EMPLEADO = "Jaime";
+            Empleados miEmpleado2 = new Empleados();
+            miEmpleado2.ID_EMPLEADO = "E-02";
+            miEmpleado2.NOMBRE_EMPLEADO = "Josefina";
+            Empleados miEmpleado3 = new Empleados();
+            miEmpleado3.ID_EMPLEADO = "E-03";
+            miEmpleado3.NOMBRE_EMPLEADO = "Ramiro";
+            gestorStaff.altaEmpleados(miEmpleado1);
+            gestorStaff.altaEmpleados(miEmpleado2);
+            gestorStaff.altaEmpleados(miEmpleado3);
+            gestorStaff.mostrarEmpleados();
+            Console.WriteLine("\nEjercicio de actualización.");
+
+            Empleados sustituto = new Empleados();
+            sustituto.ID_EMPLEADO = "E-01";
+            sustituto.NOMBRE_EMPLEADO = "Luisa";
+            gestorStaff.actualizaEmpleado(sustituto);
+            gestorStaff.mostrarEmpleados();
+            Console.WriteLine("Borrando registros");
+            gestorStaff.borraEmpleado(miEmpleado2);
+            gestorStaff.mostrarEmpleados();
+
         }
-            
-            /*
-                
-            animalGestor.AltaAnimales("A-006","Caballo");
-            animalGestor.AltaAnimales("A-007", "Castor");
-            animalGestor.AltaAnimales("A-008", "Elefante");
-            animalGestor.MostrarAnimales();
-            */       
+
+        /*
+
+        animalGestor.AltaAnimales("A-006","Caballo");
+        animalGestor.AltaAnimales("A-007", "Castor");
+        animalGestor.AltaAnimales("A-008", "Elefante");
+        animalGestor.MostrarAnimales();
+        */
     }
 
 
@@ -48,11 +72,11 @@ namespace Tienda_Mascotas
     {
         private string id_Animal;
         private string nombre_animal;
-             
+
         public string IDANIMAL
         {
-             get { return this.id_Animal; }
-             set { this.id_Animal = value; }
+            get { return this.id_Animal; }
+            set { this.id_Animal = value; }
 
         }
         public string NOMBRE_ANIMAL
@@ -67,25 +91,25 @@ namespace Tienda_Mascotas
 
     }
     //Se plantea separar las entidades de los gestores.Primer gestor-> Animales
-    public class gestorAnimales 
-    {        
-        private List<Animales> listaAnimales=new List<Animales>();
+    public class gestorAnimales
+    {
+        private List<Animales> listaAnimales = new List<Animales>();
 
         public void AltaAnimales(Animales animal)
         {
-            
+
             if (listaAnimales.Any(anim => anim.IDANIMAL == animal.IDANIMAL))
             {
                 Console.WriteLine("Ya existe un animal con ese ID.");
                 return;
             }
             else
-            {                
+            {
                 listaAnimales.Add(animal);
             }
         }
-        public void ActualizarAnimales(Animales anim) //Estamos intentando actualizar la instancia . Creo que tiene que ser un setter
-        {   
+        public void ActualizarAnimales(Animales anim) //Se actualízó a crear el objeto fuera y pasarlo como parámetro
+        {
 
             Animales animalExistente = listaAnimales.FirstOrDefault(a => a.IDANIMAL == anim.IDANIMAL);//Buscamos y el primero que encontremos(o no) se guarda en una objeto Animales.Si hay duplicados se usa listaAnimales.Where
 
@@ -103,9 +127,9 @@ namespace Tienda_Mascotas
 
         }
 
-        public void borrarAnimal(Animales animbo) 
-        { 
-            Animales eraAnimal=listaAnimales.FirstOrDefault(a=>a.IDANIMAL==animbo.IDANIMAL);
+        public void borrarAnimal(Animales animbo)
+        {
+            Animales eraAnimal = listaAnimales.FirstOrDefault(a => a.IDANIMAL == animbo.IDANIMAL);
             if (eraAnimal != null)
             {
                 listaAnimales.Remove(eraAnimal);
@@ -131,17 +155,17 @@ namespace Tienda_Mascotas
 
     }
 
-    
+
     public class Empleados
     {
         private string idEmpleado;
         private string nombreEmpleado;
         //public Empleados(string idempleado)
-        
+
         public string ID_EMPLEADO
         {
             get { return this.idEmpleado; }
-            set { this.idEmpleado = value;}
+            set { this.idEmpleado = value; }
         }
         public string NOMBRE_EMPLEADO
         {
@@ -153,37 +177,62 @@ namespace Tienda_Mascotas
     //Vamos aqui. Siguen los empleados.
     public class gestorEmpleados //Se realiza el gestor. Metodos de gestión para la tabla Empleados
     {
-        List<Empleados> listaEmpleados=new List<Empleados>();
+        List<Empleados> listaEmpleados = new List<Empleados>();
 
-        public void altaEmpleados(Empleados nuevoEmpleado) 
+        public void altaEmpleados(Empleados nuevoEmpleado)
         {
+
             if (listaEmpleados.Any(emplo => emplo.ID_EMPLEADO == nuevoEmpleado.ID_EMPLEADO))
             {
                 Console.WriteLine("Ya existe un empleado con ese ID");
                 return;
             }
-            else 
+            else
             {
-                
+
                 listaEmpleados.Add(nuevoEmpleado);
             }
         }
-        public void mostrarEmpleados() 
+        public void mostrarEmpleados()
         {
-            foreach (Empleados em in listaEmpleados) 
-            { 
-                Console.WriteLine($"ID Empleado: {em.ID_EMPLEADO}, Nombre: {em.NOMBRE_EMPLEADO}"); 
+            foreach (Empleados em in listaEmpleados)
+            {
+                Console.WriteLine($"ID Empleado: {em.ID_EMPLEADO}, Nombre: {em.NOMBRE_EMPLEADO}");
             }
         }
+        public void actualizaEmpleado(Empleados empleadoCambia)
+        {
+            Empleados empleadoExistente = listaEmpleados.FirstOrDefault(emp => emp.ID_EMPLEADO == empleadoCambia.ID_EMPLEADO);
+            if (empleadoCambia != null)
+            {
+                empleadoExistente.NOMBRE_EMPLEADO = empleadoCambia.NOMBRE_EMPLEADO;
+            }
+            else
+            {
+                Console.WriteLine("No se encontró un empleado con ese ID.");
+            }
+        }
+        public void borraEmpleado(Empleados emple)
+        {
+            if (listaEmpleados.Any(emp => emp.ID_EMPLEADO == emple.ID_EMPLEADO))
+            {
+                listaEmpleados.Remove(emple);
+            }
+            else
+            {
+                Console.WriteLine("No se encontró algún empleado con ese ID.");
+            }
+        }
+
     }
-    /*
+
     public class Productos
     {
         private string idProducto;
         private string nombreProducto;
         private double precio;
         private string id_Animal;
-                
+
         public string ID_PRODUCTO
         {
             set { this.idProducto = value; }
@@ -205,6 +254,33 @@ namespace Tienda_Mascotas
             set { this.id_Animal = value; }
         }
     }
+
+    public class gestorProductos
+    {
+        List<Productos> listaProductos=new List<Productos>();
+
+        public void altaProductos(Productos produc) 
+        {
+            if (listaProductos.Any(prod => prod.ID_PRODUCTO == produc.ID_PRODUCTO))
+            {
+                Console.WriteLine("Este producto ya se encuentra registrado");
+                return;
+            }
+            else 
+            { 
+                listaProductos.Add(produc);
+            }
+        }
+        public void mostrarProductos() 
+        {
+            foreach (Productos produc in listaProductos) 
+            {
+                Console.WriteLine($"ID: {produc.ID_PRODUCTO}, Nombre: {produc.NOMBRE_PRODUCTO}, Precio: {produc.PRECIO}, ID:Animal: {produc.ID_PRODUCTO}");
+            }
+        }
+
+    }
+    /*
     public class Ventas
     {
         private string idVentas;
