@@ -84,7 +84,7 @@ namespace Tienda_Mascotas
             get { return this.nombre_animal; }
             set { this.nombre_animal = value; }
         }
-        public override string ToString() //Se puede sustituir pero no se comprende del todo su funcionamiento
+        public override string ToString() //Se puede sustituir pero no se comprende del todo su funcionamiento.Pendiente
         {
             return $"ID: {IDANIMAL}, Nombre: {NOMBRE_ANIMAL}";
         }
@@ -111,7 +111,7 @@ namespace Tienda_Mascotas
         public void ActualizarAnimales(Animales anim) //Se actualízó a crear el objeto fuera y pasarlo como parámetro
         {
 
-            Animales animalExistente = listaAnimales.FirstOrDefault(a => a.IDANIMAL == anim.IDANIMAL);//Buscamos y el primero que encontremos(o no) se guarda en una objeto Animales.Si hay duplicados se usa listaAnimales.Where
+            Animales animalExistente = listaAnimales.FirstOrDefault(a => a.IDANIMAL == anim.IDANIMAL);//Buscamos la primera referencia que encontremos, se guarda como animalExistente.Si hay duplicados se usa listaAnimales.Where
 
             if (animalExistente != null)
             {
