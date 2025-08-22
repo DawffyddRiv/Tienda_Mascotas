@@ -278,6 +278,30 @@ namespace Tienda_Mascotas
                 Console.WriteLine($"ID: {produc.ID_PRODUCTO}, Nombre: {produc.NOMBRE_PRODUCTO}, Precio: {produc.PRECIO}, ID:Animal: {produc.ID_PRODUCTO}");
             }
         }
+        public void actualizarProducto(Productos produc) 
+        {
+            Productos freshProducto = listaProductos.FirstOrDefault(prod=>prod.ID_PRODUCTO==produc.ID_PRODUCTO);
+            if (freshProducto != null)
+            {
+                freshProducto=produc;
+                Console.WriteLine("Se ha actualizado el prodcuto");
+            }
+            else 
+            {
+                Console.WriteLine("No se ha encontrado un producto con ese ID");
+            }
+        }
+        public void borrarProducto(Productos produc) 
+        {
+            if (listaProductos.Any(prod => prod.ID_PRODUCTO == produc.ID_PRODUCTO))
+            {
+                listaProductos.Remove(produc);
+            }
+            else 
+            {
+                Console.WriteLine("No se encontró un producto con ese ID");
+            }
+        }
 
     }
     /*
