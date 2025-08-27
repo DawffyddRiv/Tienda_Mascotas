@@ -123,6 +123,41 @@ namespace Tienda_Mascotas
             misVentas.borrarVenta(miVenta3);
             Console.WriteLine("Mostrando Ventas");
             misVentas.mostrarVentas();
+
+
+            ordenVenta ordenVenta1 = new ordenVenta();
+            ordenVenta1.IDVENTA = "V-01";
+            ordenVenta1.IDRODUCTO = "P-02";
+            ordenVenta1.CANTIDADPRODUCTO = 5;
+
+            ordenVenta ordenVenta2 = new ordenVenta();
+            ordenVenta2.IDVENTA = "V-02";
+            ordenVenta2.IDRODUCTO = "P-05";
+            ordenVenta2.CANTIDADPRODUCTO = 3;
+
+            ordenVenta ordenVenta3 = new ordenVenta();
+            ordenVenta3.IDVENTA = "V-03";
+            ordenVenta3.IDRODUCTO = "P-01";
+            ordenVenta3.CANTIDADPRODUCTO = 4;
+            
+            Console.WriteLine("Mostrando ordenes de venta");
+            gestorOrdenVentas misOrdenes=new gestorOrdenVentas();
+            misOrdenes.altaOrden(ordenVenta1);
+            misOrdenes.altaOrden(ordenVenta2);
+            misOrdenes.altaOrden(ordenVenta3);
+
+            ordenVenta nuevaOrden=new ordenVenta();
+            nuevaOrden.IDVENTA = "V-01";
+            nuevaOrden.IDRODUCTO = "P-02";
+            nuevaOrden.CANTIDADPRODUCTO= 10;
+
+            misOrdenes.mostrarOrden();
+            misOrdenes.actualizarOrden(nuevaOrden);
+            Console.WriteLine("Actualizando ordenes");
+            misOrdenes.mostrarOrden();
+            Console.WriteLine("Borrando una orden");
+            misOrdenes.borrarOrden(ordenVenta1);
+            misOrdenes.mostrarOrden();
         }
 
         /*
@@ -485,6 +520,53 @@ namespace Tienda_Mascotas
     public class gestorOrdenVentas 
     {
         List<ordenVenta> listaOrdenVentas=new List<ordenVenta>();
+
+        public void altaOrden(ordenVenta nuevaOrden) 
+        {
+            ordenVenta refOrden = listaOrdenVentas.FirstOrDefault(ord=>(ord.IDVENTA == ord.IDRODUCTO)&&(ord.IDVENTA == ord.IDRODUCTO));
+            if (refOrden != null)
+            {
+                Console.WriteLine("La orden de venta ya ha sido registrada");
+            }
+            else 
+            {
+                listaOrdenVentas.Add(nuevaOrden);
+                
+            }   
+        }
+        public void mostrarOrden() 
+        {
+            foreach (ordenVenta orden in listaOrdenVentas) 
+            {
+                Console.WriteLine($"ID_Venta: {orden.IDVENTA}, ID_Producto{orden.IDRODUCTO}, Cantidad: {orden.CANTIDADPRODUCTO} ");
+            }
+        }
+
+        public void actualizarOrden(ordenVenta updaOrden) 
+        { 
+            ordenVenta refOrden=listaOrdenVentas.FirstOrDefault(refOr=>(refOr.IDVENTA==updaOrden.IDVENTA) && (refOr.IDRODUCTO==updaOrden.IDRODUCTO));
+            if (refOrden != null)
+            {
+                refOrden.CANTIDADPRODUCTO = updaOrden.CANTIDADPRODUCTO;
+            }
+            else 
+            {
+                Console.WriteLine("No se encontró una orden con los ID de productos y Ventas señalados");
+            }
+        }
+        public void borrarOrden(ordenVenta borrarOrden) 
+        {
+            ordenVenta referenciaOrden = listaOrdenVentas.FirstOrDefault(refeOr => (refeOr.IDVENTA == borrarOrden.IDVENTA) && (refeOr.IDRODUCTO == borrarOrden.IDRODUCTO));
+
+            if (referenciaOrden != null)
+            {
+                listaOrdenVentas.Remove(referenciaOrden);
+            }
+            else 
+            {
+                Console.WriteLine("No se encontró una orden con los ID de producto y venta especificados");
+            }
+        }
     
     }
     
