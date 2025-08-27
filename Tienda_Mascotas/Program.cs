@@ -90,6 +90,39 @@ namespace Tienda_Mascotas
             nuevoProducto.ID_ANIMAL = "A-02";
             misProductos.actualizarProducto(nuevoProducto);
             misProductos.mostrarProductos();
+
+            Ventas miVenta1 = new Ventas();
+            miVenta1.IDVENTA = "V-01";
+            miVenta1.FECHAVENTA = "08/05/2023";
+            miVenta1.ID_EMPLEADO = "E-02";
+
+            Ventas miVenta2 = new Ventas();
+            miVenta2.IDVENTA = "V-02";
+            miVenta2.FECHAVENTA = "10/06/2023";
+            miVenta2.ID_EMPLEADO = "E-01";
+
+            Ventas miVenta3=new Ventas();
+            miVenta3.IDVENTA = "V-03";
+            miVenta3.FECHAVENTA = "15/05/2023";
+            miVenta3.ID_EMPLEADO = "E-02";
+
+            gestorVentas misVentas = new gestorVentas();
+            misVentas.altaVenta(miVenta1);
+            misVentas.altaVenta(miVenta2);
+            misVentas.altaVenta(miVenta3);
+            misVentas.mostrarVentas();
+
+            Ventas frescaVenta = new Ventas();
+            frescaVenta.IDVENTA = "V-03";
+            frescaVenta.FECHAVENTA = "25/07/2024";
+            frescaVenta.ID_EMPLEADO = "E-01";
+
+            misVentas.actualizarVenta(frescaVenta);
+            Console.WriteLine("Actualizando la tabla ventas");
+            misVentas.mostrarVentas();
+            misVentas.borrarVenta(miVenta3);
+            Console.WriteLine("Mostrando Ventas");
+            misVentas.mostrarVentas();
         }
 
         /*
@@ -344,11 +377,10 @@ namespace Tienda_Mascotas
         }
 
     }
-    /*
+    
     public class Ventas
     {
-        private string idVentas;
-        //private string idProducto;
+        private string idVentas;        
         private string idVendedor;
         private string fechaVenta;
 
@@ -365,9 +397,67 @@ namespace Tienda_Mascotas
         public string ID_EMPLEADO 
         {
             get{ return this.idVendedor; }
-            set{ this.idVendedor = value;
+            set{ this.idVendedor = value; }
         }
     }
+    public class gestorVentas 
+    {
+        List<Ventas>  listaVentas=new List<Ventas>();
+
+        public void altaVenta(Ventas venta) 
+        {
+            if (listaVentas.Any(vent=>vent.IDVENTA==venta.IDVENTA)) 
+            {
+                Console.WriteLine("El producto ya ha sido registrado");
+                
+            }
+            else
+            {
+                listaVentas.Add(venta);
+            }
+        }
+        public void mostrarVentas()
+        {
+            foreach(Ventas venta in listaVentas) 
+            {
+                Console.WriteLine($"ID_Venta {venta.IDVENTA}, Fecha venta: {venta.FECHAVENTA}, ID_Vendedor: {venta.ID_EMPLEADO}");       
+            }
+        }
+
+        public void actualizarVenta(Ventas freshVenta) 
+        {
+            Ventas refVenta = listaVentas.FirstOrDefault(vent=>vent.IDVENTA==freshVenta.IDVENTA);
+            if (refVenta != null) 
+            {
+                refVenta.IDVENTA=freshVenta.IDVENTA;
+                refVenta.FECHAVENTA=freshVenta.FECHAVENTA;
+                refVenta.ID_EMPLEADO = freshVenta.ID_EMPLEADO;
+            }
+            else 
+            {
+                Console.WriteLine("No se ha encontrado una venta con el ID ");
+            }
+        }
+        public void borrarVenta(Ventas eraseVenta)
+        {
+            Ventas referenciaVenta = listaVentas.FirstOrDefault(vent => vent.IDVENTA == eraseVenta.IDVENTA);
+
+            if (referenciaVenta != null) //Por qué no funciona con firstorDefault? Si funciona, sólo que any regresaba un booleano y firstordefault te regresa el objeto o null
+            {
+                listaVentas.Remove(referenciaVenta);
+                
+            }
+            else 
+            {
+                Console.WriteLine("No se ha encontrado una venta con ese ID");
+            }
+        }
+    }
+            
+
+        
+        
+    
     public class ordenVenta
     {
         private string idVenta;
@@ -391,7 +481,13 @@ namespace Tienda_Mascotas
             set { this.cantidadProducto = value; }
         }
     }
-    */
+
+    public class gestorOrdenVentas 
+    {
+        List<ordenVenta> listaOrdenVentas=new List<ordenVenta>();
+    
+    }
+    
 
 }
 
