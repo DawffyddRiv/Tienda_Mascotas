@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tienda_Mascotas.Interfaces;
 
 namespace Tienda_Mascotas.Modelos
 {
@@ -26,6 +27,8 @@ namespace Tienda_Mascotas.Modelos
         {
             return $"ID: {IDANIMAL}, Nombre: {NOMBRE_ANIMAL}";
         }
+
+       
     }
       
    

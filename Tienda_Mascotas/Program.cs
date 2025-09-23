@@ -3,6 +3,7 @@ using System.Numerics;
 using Tienda_Mascotas;
 using Tienda_Mascotas.Modelos;
 using Tienda_Mascotas.Gestores;
+using System.Text.RegularExpressions;
 
 namespace Tienda_Mascotas
 {
