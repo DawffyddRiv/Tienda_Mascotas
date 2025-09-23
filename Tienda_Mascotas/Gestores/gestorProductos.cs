@@ -16,8 +16,8 @@ namespace Tienda_Mascotas.Gestores
         {
             if (listaProductos.Any(prod => prod.ID_PRODUCTO == produc.ID_PRODUCTO))
             {
-                Console.WriteLine("Este producto ya se encuentra registrado");
-                return;
+                throw new InvalidOperationException($"El producto con ID {produc.ID_PRODUCTO} ya está registrado.");
+                
             }
             else
             {
@@ -47,7 +47,8 @@ namespace Tienda_Mascotas.Gestores
             }
             else
             {
-                Console.WriteLine("No se ha encontrado un producto con ese ID");
+                throw new KeyNotFoundException($"No se ha encontrado un producto con el ID {produc.ID_PRODUCTO} ");
+                //Console.WriteLine("No se ha encontrado un producto con ese ID");
             }
         }
         public void borrarProducto(Productos produc)
@@ -58,7 +59,8 @@ namespace Tienda_Mascotas.Gestores
             }
             else
             {
-                Console.WriteLine("No se encontró un producto con ese ID");
+                throw new KeyNotFoundException($"No se encontró un producto con el ID {produc.ID_PRODUCTO}");
+                //Console.WriteLine("No se encontró un producto con ese ID");
             }
         }
 

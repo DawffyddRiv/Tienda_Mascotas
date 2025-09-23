@@ -17,7 +17,7 @@ namespace Tienda_Mascotas.Modelos
             get { return this.idVenta; }
             set { this.idVenta = value; }
         }
-        public string IDRODUCTO
+        public string IDPRODUCTO
         {
             get { return this.idProducto; }
             set { this.idProducto = value; }

@@ -13,10 +13,11 @@ namespace Tienda_Mascotas.Gestores
 
         public void altaOrden(ordenVenta nuevaOrden)
         {
-            ordenVenta refOrden = listaOrdenVentas.FirstOrDefault(ord => (ord.IDVENTA == ord.IDRODUCTO) && (ord.IDVENTA == ord.IDRODUCTO));
+            ordenVenta refOrden = listaOrdenVentas.FirstOrDefault(ord => (ord.IDVENTA == nuevaOrden.IDVENTA) && (ord.IDPRODUCTO == nuevaOrden.IDPRODUCTO));
             if (refOrden != null)
             {
-                Console.WriteLine("La orden de venta ya ha sido registrada");
+                throw new InvalidOperationException($"La orden de venta con el ID de venta {refOrden.IDVENTA} e ID de producto {refOrden.IDPRODUCTO} ya se registraron");
+                //Console.WriteLine("La orden de venta ya ha sido registrada");
             }
             else
             {
@@ -34,14 +35,15 @@ namespace Tienda_Mascotas.Gestores
 
         public void actualizarOrden(ordenVenta updaOrden)
         {
-            ordenVenta refOrden = listaOrdenVentas.FirstOrDefault(refOr => (refOr.IDVENTA == updaOrden.IDVENTA) && (refOr.IDRODUCTO == updaOrden.IDRODUCTO));
+            ordenVenta refOrden = listaOrdenVentas.FirstOrDefault(refOr => (refOr.IDVENTA == updaOrden.IDVENTA) && (refOr.IDPRODUCTO == updaOrden.IDPRODUCTO));
             if (refOrden != null)
             {
                 refOrden.CANTIDADPRODUCTO = updaOrden.CANTIDADPRODUCTO;
             }
             else
             {
-                Console.WriteLine("No se encontró una orden con los ID de productos y Ventas señalados");
+                throw new KeyNotFoundException($"No se encontró una orden con el ID de producto: {updaOrden.IDPRODUCTO} e ID de venta:  {updaOrden.IDVENTA}");
+                //Console.WriteLine("No se encontró una orden con los ID de productos y Ventas señalados");
             }
         }
         public void borrarOrden(ordenVenta borrarOrden)
@@ -54,7 +56,8 @@ namespace Tienda_Mascotas.Gestores
             }
             else
             {
-                Console.WriteLine("No se encontró una orden con los ID de producto y venta especificados");
+                throw new KeyNotFoundException("No se encontró una orden con los ID de producto y venta especificados");
+                //Console.WriteLine("No se encontró una orden con los ID de producto y venta especificados");
             }
         }
 

@@ -10,4 +10,16 @@ namespace Tienda_Mascotas.Interfaces
     {
         void ValidarID(string idUnico);
     }
+    public interface IValidarNombre 
+    {
+        void ValidarNombre(string nombre);
+    }
+    public interface IValidarPrecio 
+    {
+        float ValidarPrecio(float precio);
+    }
+    public interface IValidarFecha 
+    {
+        void ValidarFecha(string fecha);
+    }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Tienda_Mascotas.Modelos;
 
 namespace Tienda_Mascotas.Gestores
@@ -15,7 +16,8 @@ namespace Tienda_Mascotas.Gestores
         {
             if (listaVentas.Any(vent => vent.IDVENTA == venta.IDVENTA))
             {
-                Console.WriteLine("El producto ya ha sido registrado");
+                throw new InvalidOperationException($"El producto con el ID {venta.IDVENTA} ya se encuentra registrado");
+                //Console.WriteLine("El producto ya ha sido registrado");
 
             }
             else
@@ -42,7 +44,8 @@ namespace Tienda_Mascotas.Gestores
             }
             else
             {
-                Console.WriteLine("No se ha encontrado una venta con el ID ");
+                throw new KeyNotFoundException($"No se encontró una venta con el ID {freshVenta.IDVENTA} ");
+                //Console.WriteLine("No se ha encontrado una venta con el ID ");
             }
         }
         public void borrarVenta(Ventas eraseVenta)
@@ -56,7 +59,8 @@ namespace Tienda_Mascotas.Gestores
             }
             else
             {
-                Console.WriteLine("No se ha encontrado una venta con ese ID");
+                throw new KeyNotFoundException($"No se ha encontrado una venta con el ID: {eraseVenta.IDVENTA} ");
+                //Console.WriteLine("No se ha encontrado una venta con ese ID");
             }
         }
     }

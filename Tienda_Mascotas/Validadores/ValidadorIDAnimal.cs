@@ -8,7 +8,7 @@ using Tienda_Mascotas.Interfaces;
 
 namespace Tienda_Mascotas.Validadores
 {
-    public class ValidadorIDAnimal : IValidarID
+    public class Validador : IValidarID, IValidarNombre
     {
         public void ValidarID(string identificador) 
         { 
@@ -18,5 +18,15 @@ namespace Tienda_Mascotas.Validadores
             }
 
         }
+        public void ValidarNombre(string nombre)
+        {
+            if (!Regex.IsMatch(nombre, @"^[A-Z][a-zA-Z]{1,39}$"))
+            {
+                throw new Exception("El nombre debe iniciar con una letra mayúscula y el resto deben ser caracteres.No se aceptan numeros ");
+            }
+        }
+        public 
     }
+    
+    
 }

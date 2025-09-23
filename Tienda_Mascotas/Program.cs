@@ -11,6 +11,8 @@ namespace Tienda_Mascotas
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Probando");
+            Console.Write("Prueba dos");
             gestorAnimales animalGestor = new gestorAnimales();
             Animales miAnimal = new Animales();
             miAnimal.IDANIMAL = "A-01";

@@ -16,8 +16,9 @@ namespace Tienda_Mascotas.Gestores
 
             if (listaEmpleados.Any(emplo => emplo.ID_EMPLEADO == nuevoEmpleado.ID_EMPLEADO))
             {
-                Console.WriteLine("Ya existe un empleado con ese ID");
-                return;
+                throw new InvalidOperationException($"Ya existe un empleado con el ID {nuevoEmpleado.ID_EMPLEADO} ");
+                //Console.WriteLine("Ya existe un empleado con ese ID");
+                //return;
             }
             else
             {
@@ -41,7 +42,8 @@ namespace Tienda_Mascotas.Gestores
             }
             else
             {
-                Console.WriteLine("No se encontró un empleado con ese ID.");
+                throw new KeyNotFoundException($"No se encontró un empleado con el ID {empleadoCambia.ID_EMPLEADO} ");
+                //Console.WriteLine("No se encontró un empleado con ese ID.");
             }
         }
         public void borraEmpleado(Empleados emple)
@@ -52,7 +54,8 @@ namespace Tienda_Mascotas.Gestores
             }
             else
             {
-                Console.WriteLine("No se encontró algún empleado con ese ID.");
+                throw new KeyNotFoundException($"No se encontró un empleado con el ID {emple.ID_EMPLEADO} ");
+                //Console.WriteLine("No se encontró algún empleado con ese ID.");
             }
         }
     }

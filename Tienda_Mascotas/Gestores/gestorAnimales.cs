@@ -16,8 +16,8 @@ namespace Tienda_Mascotas.Gestores
 
             if (listaAnimales.Any(anim => anim.IDANIMAL == animal.IDANIMAL))
             {
-                Console.WriteLine("Ya existe un animal con ese ID.");
-                return;
+                throw new InvalidOperationException($"Ya existe un animal registrado con el ID {animal.IDANIMAL} ");
+                
             }
             else
             {
@@ -38,7 +38,8 @@ namespace Tienda_Mascotas.Gestores
             }
             else
             {
-                Console.WriteLine("No se encontró un animal con ese ID.");
+                throw new KeyNotFoundException($"No se encontró un animal registrado con el ID {anim.IDANIMAL} ");
+                //Console.WriteLine("No se encontró un animal con ese ID.");
             }
 
         }
@@ -53,7 +54,8 @@ namespace Tienda_Mascotas.Gestores
             }
             else
             {
-                Console.WriteLine("No se encontró un animal con ese ID.");
+                throw new KeyNotFoundException($"No se encontró un animal registrado con el ID {animbo.IDANIMAL} ");
+                //Console.WriteLine("No se encontró un animal con ese ID.");
             }
 
         }
