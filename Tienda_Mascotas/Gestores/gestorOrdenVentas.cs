@@ -29,7 +29,7 @@ namespace Tienda_Mascotas.Gestores
         {
             foreach (ordenVenta orden in listaOrdenVentas)
             {
-                Console.WriteLine($"ID_Venta: {orden.IDVENTA}, ID_Producto{orden.IDRODUCTO}, Cantidad: {orden.CANTIDADPRODUCTO} ");
+                Console.WriteLine($"ID_Venta: {orden.IDVENTA}, ID_Producto{orden.IDPRODUCTO}, Cantidad: {orden.CANTIDADPRODUCTO} ");
             }
         }
 
@@ -48,7 +48,7 @@ namespace Tienda_Mascotas.Gestores
         }
         public void borrarOrden(ordenVenta borrarOrden)
         {
-            ordenVenta referenciaOrden = listaOrdenVentas.FirstOrDefault(refeOr => (refeOr.IDVENTA == borrarOrden.IDVENTA) && (refeOr.IDRODUCTO == borrarOrden.IDRODUCTO));
+            ordenVenta referenciaOrden = listaOrdenVentas.FirstOrDefault(refeOr => (refeOr.IDVENTA == borrarOrden.IDVENTA) && (refeOr.IDPRODUCTO == borrarOrden.IDPRODUCTO));
 
             if (referenciaOrden != null)
             {

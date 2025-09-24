@@ -132,17 +132,17 @@ namespace Tienda_Mascotas
 
             ordenVenta ordenVenta1 = new ordenVenta();
             ordenVenta1.IDVENTA = "V-01";
-            ordenVenta1.IDRODUCTO = "P-02";
+            ordenVenta1.IDPRODUCTO = "P-02";
             ordenVenta1.CANTIDADPRODUCTO = 5;
 
             ordenVenta ordenVenta2 = new ordenVenta();
             ordenVenta2.IDVENTA = "V-02";
-            ordenVenta2.IDRODUCTO = "P-05";
+            ordenVenta2.IDPRODUCTO = "P-05";
             ordenVenta2.CANTIDADPRODUCTO = 3;
 
             ordenVenta ordenVenta3 = new ordenVenta();
             ordenVenta3.IDVENTA = "V-03";
-            ordenVenta3.IDRODUCTO = "P-01";
+            ordenVenta3.IDPRODUCTO = "P-01";
             ordenVenta3.CANTIDADPRODUCTO = 4;
             
             Console.WriteLine("Mostrando ordenes de venta");
@@ -153,7 +153,7 @@ namespace Tienda_Mascotas
 
             ordenVenta nuevaOrden=new ordenVenta();
             nuevaOrden.IDVENTA = "V-01";
-            nuevaOrden.IDRODUCTO = "P-02";
+            nuevaOrden.IDPRODUCTO = "P-02";
             nuevaOrden.CANTIDADPRODUCTO= 10;
 
             misOrdenes.mostrarOrden();

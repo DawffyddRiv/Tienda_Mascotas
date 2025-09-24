@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -10,22 +11,34 @@ namespace Tienda_Mascotas.Validadores
 {
     public class Validador : IValidarID, IValidarNombre
     {
-        public void ValidarID(string identificador) 
-        { 
-            if(!Regex.IsMatch(identificador, @"^A-\d{2}$")) 
-            {
-                throw new Exception("El ID para animales debe seguir el siguiente formato A-xx siendo x digitos ");
-            }
-
-        }
-        public void ValidarNombre(string nombre)
+        public string ValidarID(string identificador)
         {
+            if (!Regex.IsMatch(identificador, @"^A-\d{2}$"))
+            {
+                throw new FormatException("El ID debe seguir el formato A-xx (siendo x dígitos).");
+            }
+            return identificador;
+            
+            
+        }
+        public string ValidarNombre(string nombre)
+        {
+
             if (!Regex.IsMatch(nombre, @"^[A-Z][a-zA-Z]{1,39}$"))
             {
-                throw new Exception("El nombre debe iniciar con una letra mayúscula y el resto deben ser caracteres.No se aceptan numeros ");
+                throw new FormatException("El nombre debe contener sólo caracteres.Vuelve a introducirlo");
             }
+            return nombre;             
         }
-        public 
+        public decimal ValidarPrecio(string precio) 
+        {
+            if (!Regex.IsMatch(precio, @"^\d+(\.\d+)?$")) 
+            {
+                throw new FormatException("El valor debe ser un número entero o decimal válido.");
+            }
+            return decimal.Parse(precio);
+        }
+         
     }
     
     
