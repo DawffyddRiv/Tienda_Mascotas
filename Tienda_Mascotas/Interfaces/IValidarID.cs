@@ -20,6 +20,6 @@ namespace Tienda_Mascotas.Interfaces
     }
     public interface IValidarFecha 
     {
-        void ValidarFecha(string fecha);
+        DateTime ValidarFecha(string fecha);
     }
 }

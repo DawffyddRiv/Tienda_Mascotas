@@ -38,7 +38,20 @@ namespace Tienda_Mascotas.Validadores
             }
             return decimal.Parse(precio);
         }
-         
+
+        public DateTime ValidarFecha(string fecha) 
+        {
+            if (!Regex.IsMatch(fecha, @"^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/\d{4}$")) 
+            {
+                throw new FormatException("La fecha debe tener el formato dd/mm/aaaa.");
+            }
+            // Ahora intentamos parsear de verdad (para evitar 31/02/2023, que pasaría la regex)
+            if (!DateTime.TryParseExact(fecha, "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime fechaValida)) 
+            {
+                throw new FormatException("La fecha no es válida en el calendario.");
+            }
+            return fechaValida;
+        }
     }
     
     
